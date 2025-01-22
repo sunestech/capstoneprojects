@@ -7,8 +7,8 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', credentialsId: 'GIT-PAT', url: 'https://github.com/username/repository.git'
-            }
+                git branch: 'main', credentialsId: 'GIT-PAT', url: 'https://github.com/sunestech/capstoneprojects.git
+                            }
         }
         stage('Build') {
             steps {
