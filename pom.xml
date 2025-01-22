@@ -1,105 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.edurekademo.tutorial</groupId>
-    <artifactId>addressbook</artifactId>
-    <packaging>war</packaging>
-    <version>2.0</version>
-    <name>Vaadin Addressbook example</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-        <vaadin.version>8.0.0.alpha2</vaadin.version>
-    </properties>
-
-    <repositories>
-        <repository>
-            <id>vaadin-prereleases</id>
-            <name>Vaadin Pre-releases</name>
-            <url>https://maven.vaadin.com/vaadin-prereleases</url>
-        </repository>
-        <repository>
-            <id>vaadin-addons</id>
-            <url>https://maven.vaadin.com/vaadin-addons</url>
-        </repository>
-    </repositories>
-
-    <dependencies>
-        <!-- Vaadin Dependencies -->
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-compatibility-server</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-themes</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-
-        <!-- Servlet API -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.17.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.36</version>
-        </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.8.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- JSON -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.2.2</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <!-- Compiler Plugin -->
-            <plugin>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.xyz</groupId>
+	<artifactId>XYZtechnologies</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	<name>adminModule</name>
+	<url>http://www.example.com</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- JaCoCo Properties -->
+		<jacoco.version>0.8.6</jacoco.version>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
+		<sonar.language>java</sonar.language>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.6</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			 <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
             </plugin>
-
-            <!-- Jetty Plugin -->
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>11.0.13</version>
-            </plugin>
-        </plugins>
-        <finalName>addressbook</finalName>
-    </build>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-site</id>
+						<phase>package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
