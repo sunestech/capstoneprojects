@@ -19,9 +19,9 @@ pipeline {
         }
         stage('Dockerize') {
             steps {
-                sh 'docker build -t supertechis-app .'
-                sh 'docker tag supertechis-app sunestech/supertechis-app:latest'
-                sh 'docker push sunestech/supertechis-app:latest'
+                sh 'docker build -t supertech-app .'
+                sh 'docker tag supertechis-app sunestech/supertech-app:latest'
+                sh 'docker push sunestech/supertech-app:latest'
             }
         }
         stage('Deploy') {
