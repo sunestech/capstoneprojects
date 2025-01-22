@@ -1,15 +1,18 @@
 pipeline {
     agent any
-
+    environment {
+        DOCKER_IMAGE = 'Supertech'
+        REGISTRY = 'https://hub.docker.com/repository/docker/sunestech'
+    }
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                git 'https://github.com/capstoneprojects/repo.git'
+                git branch: 'main', credentialsId: 'GIT-PAT', url: 'https://github.com/username/repository.git'
             }
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean install'
             }
         }
         stage('Test') {
@@ -17,16 +20,20 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Dockerize') {
+        stage('Code Analysis') {
             steps {
-                sh 'docker build -t supertech-app .'
-                sh 'docker tag supertechis-app sunestech/supertech-app:latest'
-                sh 'docker push sunestech/supertech-app:latest'
+                sh 'sonar-scanner -Dsonar.projectKey=your-project-key'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE:latest .'
+                sh 'docker push $REGISTRY/$DOCKER_IMAGE:latest'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8080:8080 sunestech/supertechis-app:latest'
+                sh 'ansible-playbook deploy.yml'
             }
         }
     }
